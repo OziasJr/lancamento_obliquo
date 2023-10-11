@@ -99,7 +99,7 @@
 
   <div class="container-fluid text m-auto">
     <!-- TÍTULO DA SIMULAÇÃO -->
-    <div class="d-flex justify-content-center m-auto">
+    <div class="d-flex justify-content-center m-auto" id="containerWindow">
       <h1 class="letter">Modelo 5</h1>
     </div>
 
@@ -189,8 +189,11 @@
     let context = canvas.getContext("2d");
     let ctx = canvas_scale.getContext("2d");
 
+    let containerWindow = document.getElementById("containerWindow");
+    let numerContainer = containerWindow.clientWidth;
+
     // CALCULO PARA VERIFICAR A DIFERENÇA DA TELA CENTRAL EM RELAÇÃO AO TAMANHO DA JANELA DO BROWSER 
-    let calWidthWindow = window.innerWidth - 1319;
+    let calWidthWindow = window.innerWidth - numerContainer;
 
     // DEFININDO O TAMANHO DO CANVAS SUPERIOR E INFERIOR, PARA QUE FIQUE RESPONSIVO
     canvas.width = window.innerWidth - calWidthWindow;
@@ -212,8 +215,12 @@
       maxHeight: 0
     };
 
+    console.log(values.width);
+
     // FUNÇÃO QUE PERCEBE A MUDANÇA DE TAMANHO DA JANELA E ATUALIZA (DANDO EFEITO DE RESPONSIVIDADE), ALÉM DE SALVAR SEMPRE UM NOVO VALOR DE COMPRIMENTO DE TELA PARA O VALUES.WIDTH E ASSIM AJUDAR NOS CÁLCULOS DA TRAGETÓRIA
     function risezeWindow() {
+      numerContainer = containerWindow.clientWidth;
+      calWidthWindow = window.innerWidth - numerContainer;
       canvas.width = window.innerWidth - calWidthWindow;
       canvas_scale.width = window.innerWidth - calWidthWindow;
       values.width = canvas.width;

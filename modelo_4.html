@@ -92,7 +92,7 @@
   </header>
 
   <div class="container-fluid text m-auto">
-    <div class="d-flex">
+    <div class="d-flex" id="containerWindow">
       <!-- Button trigger modal -->
       <div class="d-flex align-items-center">
         <a href="#" class="fs-1 text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -132,7 +132,7 @@
                       class="border border-dark form-control" placeholder="Username" aria-label="Username"
                       aria-describedby="basic-addon1">
                   </div>
-                  <div class="mb-3 col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
+                  <!-- <div class="mb-3 col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
                     <label for="velocidadeInstantânea" class="form-label text-dark fw-bold">Velocidade
                       Instantânea
                       (m/s)</label>
@@ -153,7 +153,7 @@
                       (m/s)</label>
                     <input type="text" id="velocidadeY" class="input-none border border-dark form-control"
                       aria-describedby="basic-addon1" readonly>
-                  </div>
+                  </div> -->
                   <div class="mb-3 col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
                     <label for="alcanceHorizontal" class="form-label text-dark fw-bold">Alcance
                       Horizontal
@@ -213,8 +213,11 @@
     let context = canvas.getContext("2d");
     let ctx = canvas_scale.getContext("2d");
 
+    let containerWindow = document.getElementById("containerWindow");
+    let numerContainer = containerWindow.clientWidth;
+
     // CALCULO PARA VERIFICAR A DIFERENÇA DA TELA CENTRAL EM RELAÇÃO AO TAMANHO DA JANELA DO BROWSER 
-    let calWidthWindow = window.innerWidth - 1319;
+    let calWidthWindow = window.innerWidth - numerContainer;
 
     // DEFININDO O TAMANHO DO CANVAS SUPERIOR E INFERIOR, PARA QUE FIQUE RESPONSIVO
     canvas.width = window.innerWidth - calWidthWindow;
@@ -236,8 +239,12 @@
       maxHeight: 0
     };
 
+    console.log(values.width);
+
     // FUNÇÃO QUE PERCEBE A MUDANÇA DE TAMANHO DA JANELA E ATUALIZA (DANDO EFEITO DE RESPONSIVIDADE), ALÉM DE SALVAR SEMPRE UM NOVO VALOR DE COMPRIMENTO DE TELA PARA O VALUES.WIDTH E ASSIM AJUDAR NOS CÁLCULOS DA TRAGETÓRIA
     function risezeWindow() {
+      numerContainer = containerWindow.clientWidth;
+      calWidthWindow = window.innerWidth - numerContainer;
       canvas.width = window.innerWidth - calWidthWindow;
       canvas_scale.width = window.innerWidth - calWidthWindow;
       values.width = canvas.width;
@@ -438,15 +445,15 @@
       let maximumH = (((vi ** 2) * (sen ** 2)) / (2 * gravity)).toFixed(2);
       let velocidadeX = (vi * cos).toFixed(2);
       let velocidadeY = (vi * sen).toFixed(2);
-      let velocidadeInstantânea = Math.sqrt((velocidadeX) ^ 2 + (velocidadeY) ^ 2).toFixed(2);
+      // let velocidadeInstantânea = Math.sqrt((velocidadeX) ^ 2 + (velocidadeY) ^ 2).toFixed(2);
       let senTwo = Math.sin(2 * rad);
       let alcanceHorizontal = ((vi * vi) * senTwo / gravity).toFixed(2);
 
       document.getElementById('time').value = timeInput;
       document.getElementById('maximumH').value = maximumH;
-      document.getElementById('velocidadeX').value = velocidadeX;
-      document.getElementById('velocidadeY').value = velocidadeY;
-      document.getElementById('velocidadeInstantânea').value = velocidadeInstantânea;
+      // document.getElementById('velocidadeX').value = velocidadeX;
+      // document.getElementById('velocidadeY').value = velocidadeY;
+      // document.getElementById('velocidadeInstantânea').value = velocidadeInstantânea;
       document.getElementById('alcanceHorizontal').value = alcanceHorizontal;
 
       values.maxHeight = calc.maxHeight().toFixed(2);
@@ -482,10 +489,10 @@
       document.getElementById("angulo").value = '';
       document.getElementById("time").value = '';
       document.getElementById("maximumH").value = '';
-      document.getElementById("velocidadeX").value = '';
-      document.getElementById("velocidadeY").value = '';
-      document.getElementById("velocidadeInstantânea").value = '';
       document.getElementById("alcanceHorizontal").value = '';
+      // document.getElementById("velocidadeX").value = '';
+      // document.getElementById("velocidadeY").value = '';
+      // document.getElementById("velocidadeInstantânea").value = '';
     }
 
     function object() {

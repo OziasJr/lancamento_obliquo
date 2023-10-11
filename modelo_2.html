@@ -121,7 +121,7 @@
         <input type="text" id="velocidadeInstantânea" class="input-none border border-dark form-control"
           aria-describedby="basic-addon1" readonly>
       </div> -->
-      <div class="mb-2 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <!-- <div class="mb-2 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <label for="velocidadeX" class="form-label text-dark fw-bold m-0">Velocidade em
           X no Instante 0
           (m/s)</label>
@@ -135,7 +135,7 @@
           (m/s)</label>
         <input type="text" id="velocidadeY" class="input-none border border-dark form-control"
           aria-describedby="basic-addon1" readonly>
-      </div>
+      </div> -->
       <div class="mb-2 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <label for="alcanceHorizontal" class="form-label text-dark fw-bold m-0">Alcance
           Horizontal
@@ -176,14 +176,6 @@
 
     // CALCULO PARA VERIFICAR A DIFERENÇA DA TELA CENTRAL EM RELAÇÃO AO TAMANHO DA JANELA DO BROWSER 
     let calWidthWindow = window.innerWidth - 800;
-
-    let dflex = document.getElementById("");
-
-    function dflexWindow() {
-      if (condition) {
-
-      }
-    }
 
     // DEFININDO O TAMANHO DO CANVAS SUPERIOR E INFERIOR, PARA QUE FIQUE RESPONSIVO
     canvas.width = window.innerWidth - calWidthWindow;
@@ -413,8 +405,8 @@
 
       document.getElementById('time').value = timeInput;
       document.getElementById('maximumH').value = maximumH;
-      document.getElementById('velocidadeX').value = velocidadeX;
-      document.getElementById('velocidadeY').value = velocidadeY;
+      // document.getElementById('velocidadeX').value = velocidadeX;
+      // document.getElementById('velocidadeY').value = velocidadeY;
       // document.getElementById('velocidadeInstantânea').value = velocidadeInstantânea;
       document.getElementById('alcanceHorizontal').value = alcanceHorizontal;
 
@@ -435,26 +427,26 @@
     }
 
     function reset() {
-      values.x = 50
-      values.y = 480
-      values.width = canvas.width
-      values.height = canvas.height
-      values.raio = Math.PI * 2
-      values.maxHeight = 0
-      scale.x = 1
-      scale.y = 1
-      position = []
-      aux = []
-      draw = new object()
-      document.getElementById("gravidade").value = ''
-      document.getElementById("velocidade").value = ''
-      document.getElementById("angulo").value = ''
-      document.getElementById("time").value = ''
-      document.getElementById("maximumH").value = ''
-      document.getElementById("velocidadeX").value = ''
-      document.getElementById("velocidadeY").value = ''
-      // document.getElementById("velocidadeInstantânea").value = ''
-      document.getElementById("alcanceHorizontal").value = ''
+      values.x = 50;
+      values.y = canvas.height - 20;
+      values.width = canvas.width;
+      values.height = canvas.height;
+      values.raio = Math.PI * 2;
+      values.maxHeight = 0;
+      scale.x = 1;
+      scale.y = 1;
+      position = [];
+      aux = [];
+      draw = new object();
+      document.getElementById("gravidade").value = '';
+      document.getElementById("velocidade").value = '';
+      document.getElementById("angulo").value = '';
+      document.getElementById("time").value = '';
+      document.getElementById("maximumH").value = '';
+      document.getElementById("alcanceHorizontal").value = '';
+      // document.getElementById("velocidadeX").value = '';
+      // document.getElementById("velocidadeY").value = '';
+      // document.getElementById("velocidadeInstantânea").value = '';
     }
 
     function object() {

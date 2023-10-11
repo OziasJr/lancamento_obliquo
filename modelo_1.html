@@ -102,7 +102,7 @@
         <label for="gravidade" class="form-label text-dark fw-bold">Gravidade
           (m/s<sup>2</sup>)</label>
         <input type="number" placeholder="Digite uma gravidade..." id="gravidade"
-          class="form-control border border-dark" placeholder="Username" aria-label="Username"
+          class="form-control border border-dark" placeholder="Username" aria-label="Username" onkeyup="valueTimeReal()"
           aria-describedby="basic-addon1">
       </div>
       <div class="mb-3 col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
@@ -110,14 +110,14 @@
           Inicial
           (m/s)</label>
         <input type="number" placeholder="Digite uma velocidade..." id="velocidade"
-          class="form-control border border-dark" placeholder="Username" aria-label="Username"
+          class="form-control border border-dark" placeholder="Username" aria-label="Username" onkeyup="valueTimeReal()"
           aria-describedby="basic-addon1">
       </div>
       <div class="mb-3 col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
         <label for="angulo" class="form-label text-dark fw-bold">Ângulo
           (°)</label>
         <input type="number" placeholder="Digite um ângulo..." id="angulo" class="border border-dark form-control"
-          placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+          placeholder="Username" aria-label="Username" onkeyup="valueTimeReal()" aria-describedby="basic-addon1">
       </div>
       <!-- <div class="mb-3 col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
         <label for="velocidadeInstantânea" class="form-label text-dark fw-bold">Velocidade
@@ -212,8 +212,6 @@
       raio: Math.PI * 2,
       maxHeight: 0
     };
-
-    console.log(values.width);
 
     // FUNÇÃO QUE PERCEBE A MUDANÇA DE TAMANHO DA JANELA E ATUALIZA (DANDO EFEITO DE RESPONSIVIDADE), ALÉM DE SALVAR SEMPRE UM NOVO VALOR DE COMPRIMENTO DE TELA PARA O VALUES.WIDTH E ASSIM AJUDAR NOS CÁLCULOS DA TRAGETÓRIA
     function risezeWindow() {

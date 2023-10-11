@@ -97,7 +97,7 @@
         <label for="gravidade" class="form-label text-dark fw-bold m-0">Gravidade
           (m/s<sup>2</sup>)</label>
         <input type="number" placeholder="Digite uma gravidade..." id="gravidade"
-          class="form-control border border-dark" placeholder="Username" aria-label="Username"
+          class="form-control border border-dark" placeholder="Username" aria-label="Username" onkeyup="valueTimeReal()"
           aria-describedby="basic-addon1">
       </div>
       <div class="mb-2 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -105,14 +105,14 @@
           Inicial
           (m/s)</label>
         <input type="number" placeholder="Digite uma velocidade..." id="velocidade"
-          class="form-control border border-dark" placeholder="Username" aria-label="Username"
+          class="form-control border border-dark" placeholder="Username" aria-label="Username" onkeyup="valueTimeReal()"
           aria-describedby="basic-addon1">
       </div>
       <div class="mb-2 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <label for="angulo" class="form-label text-dark fw-bold m-0">Ângulo
           (°)</label>
         <input type="number" placeholder="Digite um ângulo..." id="angulo" class="border border-dark form-control"
-          placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+          placeholder="Username" aria-label="Username" onkeyup="valueTimeReal()" aria-describedby="basic-addon1">
       </div>
       <!-- <div class="mb-2 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <label for="velocidadeInstantânea" class="form-label text-dark fw-bold m-0">Velocidade

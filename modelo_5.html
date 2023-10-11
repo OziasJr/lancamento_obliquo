@@ -113,7 +113,7 @@
             <label for="gravidade" class="form-label text-dark fw-bold m-0">Gravidade
               (m/s<sup>2</sup>)</label>
             <input type="number" placeholder="Digite..." id="gravidade"
-              class="form-control border border-dark" placeholder="Username" aria-label="Username"
+              class="form-control border border-dark" onkeyup="valueTimeReal()" placeholder="Username" aria-label="Username"
               aria-describedby="basic-addon1">
           </div>
           <div class="mb-3">
@@ -121,14 +121,14 @@
               Inicial
               (m/s)</label>
             <input type="number" placeholder="Digite..." id="velocidade"
-              class="form-control border border-dark" placeholder="Username" aria-label="Username"
+              class="form-control border border-dark" onkeyup="valueTimeReal()" placeholder="Username" aria-label="Username"
               aria-describedby="basic-addon1">
           </div>
           <div class="mb-3">
             <label for="angulo" class="form-label text-dark fw-bold m-0">Ângulo
               (°)</label>
             <input type="number" placeholder="Digite..." id="angulo" class="border border-dark form-control"
-              placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+              onkeyup="valueTimeReal()" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
           </div>
         </div>
         <!-- <div class="div-inputs-middle rounded rounded-4 border border-dark shadow p-3 bg-light">
@@ -215,8 +215,6 @@
       maxHeight: 0
     };
 
-    console.log(values.width);
-
     // FUNÇÃO QUE PERCEBE A MUDANÇA DE TAMANHO DA JANELA E ATUALIZA (DANDO EFEITO DE RESPONSIVIDADE), ALÉM DE SALVAR SEMPRE UM NOVO VALOR DE COMPRIMENTO DE TELA PARA O VALUES.WIDTH E ASSIM AJUDAR NOS CÁLCULOS DA TRAGETÓRIA
     function risezeWindow() {
       numerContainer = containerWindow.clientWidth;
@@ -259,7 +257,7 @@
 
     function calculate() {
       if (alcanceHorizontalVerification >= (values.width - 50)) {
-        
+
         // PEGANDO OS VALORES DOS INPUTS PARA FAZER OS CÁLCULOS
         let gravity = document.getElementById("gravidade").value;
         let vi = document.getElementById("velocidade").value;

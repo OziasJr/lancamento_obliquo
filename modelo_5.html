@@ -112,7 +112,7 @@
           <div class="mb-3">
             <label for="gravidade" class="form-label text-dark fw-bold m-0">Gravidade
               (m/s<sup>2</sup>)</label>
-            <input type="number" placeholder="Digite uma gravidade..." id="gravidade"
+            <input type="number" placeholder="Digite..." id="gravidade"
               class="form-control border border-dark" placeholder="Username" aria-label="Username"
               aria-describedby="basic-addon1">
           </div>
@@ -120,14 +120,14 @@
             <label for="velocidade" class="form-label text-dark fw-bold m-0">Velocidade
               Inicial
               (m/s)</label>
-            <input type="number" placeholder="Digite uma velocidade..." id="velocidade"
+            <input type="number" placeholder="Digite..." id="velocidade"
               class="form-control border border-dark" placeholder="Username" aria-label="Username"
               aria-describedby="basic-addon1">
           </div>
           <div class="mb-3">
             <label for="angulo" class="form-label text-dark fw-bold m-0">Ângulo
               (°)</label>
-            <input type="number" placeholder="Digite um ângulo..." id="angulo" class="border border-dark form-control"
+            <input type="number" placeholder="Digite..." id="angulo" class="border border-dark form-control"
               placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
           </div>
         </div>
@@ -154,19 +154,19 @@
               Horizontal
               (m)</label>
             <input type="text" id="alcanceHorizontal" class="input-none border border-dark form-control"
-              aria-describedby="basic-addon1" readonly>
+              aria-describedby="basic-addon1" value="Resultado" readonly>
           </div>
           <div class="mb-3">
             <label for="maximumH" class="form-label text-dark fw-bold m-0">Altura Máxima
               (m)</label>
             <input type="text" id="maximumH" class="input-none border border-dark form-control"
-              aria-describedby="basic-addon1" readonly>
+              aria-describedby="basic-addon1" value="Resultado" readonly>
           </div>
           <div class="mb-3">
             <label for="time" class="form-label text-dark fw-bold m-0">Tempo Total
               (s)</label>
             <input type="text" id="time" class="input-none border border-dark form-control"
-              aria-describedby="basic-addon1" readonly>
+              aria-describedby="basic-addon1" value="Resultado" readonly>
           </div>
         </div>
       </div>
@@ -258,8 +258,8 @@
     }
 
     function calculate() {
-      if (alcanceHorizontalVerification >= (canvas.width - 50)) {
-
+      if (alcanceHorizontalVerification >= (values.width - 50)) {
+        
         // PEGANDO OS VALORES DOS INPUTS PARA FAZER OS CÁLCULOS
         let gravity = document.getElementById("gravidade").value;
         let vi = document.getElementById("velocidade").value;
@@ -463,20 +463,15 @@
       document.getElementById("gravidade").value = '';
       document.getElementById("velocidade").value = '';
       document.getElementById("angulo").value = '';
-      document.getElementById("time").value = '';
-      document.getElementById("maximumH").value = '';
-      document.getElementById("alcanceHorizontal").value = '';
+      document.getElementById("time").value = 'Resultado';
+      document.getElementById("maximumH").value = 'Resultado';
+      document.getElementById("alcanceHorizontal").value = 'Resultado';
       // document.getElementById("velocidadeX").value = '';
       // document.getElementById("velocidadeY").value = '';
       // document.getElementById("velocidadeInstantânea").value = '';
     }
 
     function object() {
-      context.fillStyle = "#00000";
-      ctx.strokeStyle = "#00000";
-      ctx.fillStyle = "#00000";
-      ctx.font = "18px Arial";
-
       this.ball = function () {
         context.beginPath();
         // Tamanho da bola

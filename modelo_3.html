@@ -250,7 +250,7 @@
     }
 
     function calculate() {
-      if (alcanceHorizontalVerification >= (canvas.width - 50)) {
+      if (alcanceHorizontalVerification >= (values.width - 50)) {
 
         // PEGANDO OS VALORES DOS INPUTS PARA FAZER OS CÁLCULOS
         let gravity = document.getElementById("gravidade").value;
@@ -464,11 +464,6 @@
     }
 
     function object() {
-      context.fillStyle = "#00000";
-      ctx.strokeStyle = "#00000";
-      ctx.fillStyle = "#00000";
-      ctx.font = "18px Arial";
-
       this.ball = function () {
         context.beginPath();
         // Tamanho da bola

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Modelo 4</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Barriecito&family=Kanit:wght@400;700&family=Lilita+One&family=Roboto:ital,wght@0,100;0,400;0,700;1,400&family=Signika:wght@400;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: 0;
+      font-family: 'Baloo 2', cursive;
+    }
+
+    .canvas-div {
+      position: relative;
+    }
+
+    .div-buttons {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    canvas {
+      display: block;
+      margin: 0 auto;
+    }
+
+    #canvas {
+      background-color: #0036e9;
+      background-image: linear-gradient(180deg, #1344e6 0%, #3b60da 35%, #5172db 70%, #8799d6 100%);
+      border-top: 2px solid #000;
+      border-left: 2px solid #000;
+      border-right: 2px solid #000;
+      border-radius: 20px 20px 0 0;
+    }
+
+    #canvas_scale {
+      background: url('./ground.png');
+      border: 2px solid #000;
+      border-radius: 0 0 20px 20px;
+    }
+
+    .letter {
+      font-size: 50px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .input-none:focus {
+      box-shadow: 0 0 0 0 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="p-3 text-bg-dark mb-3">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+            <use xlink:href="#bootstrap"></use>
+          </svg>
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="./index.html" class="nav-link px-2 text-secondary fw-bold">Home</a></li>
+          <li><a href="./modelo_1.html" class="nav-link px-2 text-white">Modelo 1</a></li>
+          <li><a href="./modelo_2.html" class="nav-link px-2 text-white">Modelo 2</a></li>
+          <li><a href="./modelo_3.html" class="nav-link px-2 text-white">Modelo 3</a></li>
+          <li><a href="./modelo_4.html" class="nav-link px-2 text-white">Modelo 4</a></li>
+          <li><a href="./modelo_5.html" class="nav-link px-2 text-white">Modelo 5</a></li>
+        </ul>
+
+        <h4 class="m-0">Karina - Ozias</h4>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-fluid text m-auto">
+    <div class="d-flex">
+      <!-- Button trigger modal -->
+      <div class="d-flex align-items-center">
+        <a href="#" class="fs-1 text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <span class="mdi mdi-arrow-right-drop-circle"></span>
+        </a>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Preencha os dados de acordo com o que você
+                  precisa</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="mb-3 col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
+                    <label for="gravidade" class="form-label text-dark fw-bold">Gravidade
+                      (m/s<sup>2</sup>)</label>
+                    <input type="number" placeholder="Digite uma gravidade..." id="gravidade"
+                      class="form-control border border-dark" placeholder="Username" aria-label="Username"
+                      aria-describedby="basic-addon1">
+                  </div>
+                  <div class="mb-3 col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
+                    <label for="velocidade" class="form-label text-dark fw-bold">Velocidade
+                      Inicial
+                      (m/s)</label>
+                    <input type="number" placeholder="Digite uma velocidade..." id="velocidade"
+                      class="form-control border border-dark" placeholder="Username" aria-label="Username"
+                      aria-describedby="basic-addon1">
+                  </div>
+                  <div class="mb-3 col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
+                    <label for="angulo" class="form-label text-dark fw-bold">Ângulo
+                      (°)</label>
+                    <input type="number" placeholder="Digite um ângulo..." id="angulo"
+                      class="border border-dark form-control" placeholder="Username" aria-label="Username"
+                      aria-describedby="basic-addon1">
+                  </div>
+                  <div class="mb-3 col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
+                    <label for="velocidadeInstantânea" class="form-label text-dark fw-bold">Velocidade
+                      Instantânea
+                      (m/s)</label>
+                    <input type="text" id="velocidadeInstantânea" class="input-none border border-dark form-control"
+                      aria-describedby="basic-addon1" readonly>
+                  </div>
+                  <div class="mb-3 col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
+                    <label for="velocidadeX" class="form-label text-dark fw-bold">Velocidade em
+                      X no Instante 0
+                      (m/s)</label>
+                    <input type="text" id="velocidadeX"
+                      class="input-none border border-dark form-control border border-dark form-control"
+                      aria-describedby="basic-addon1" readonly>
+                  </div>
+                  <div class="mb-3 col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
+                    <label for="velocidadeY" class="form-label text-dark fw-bold">Velocidade em
+                      Y no Instante 0
+                      (m/s)</label>
+                    <input type="text" id="velocidadeY" class="input-none border border-dark form-control"
+                      aria-describedby="basic-addon1" readonly>
+                  </div>
+                  <div class="mb-3 col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
+                    <label for="alcanceHorizontal" class="form-label text-dark fw-bold">Alcance
+                      Horizontal
+                      (m)</label>
+                    <input type="text" id="alcanceHorizontal" class="input-none border border-dark form-control"
+                      aria-describedby="basic-addon1" readonly>
+                  </div>
+                  <div class="mb-3 col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
+                    <label for="maximumH" class="form-label text-dark fw-bold">Altura Máxima
+                      (m)</label>
+                    <input type="text" id="maximumH" class="input-none border border-dark form-control"
+                      aria-describedby="basic-addon1" readonly>
+                  </div>
+                  <div class="mb-3 col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
+                    <label for="time" class="form-label text-dark fw-bold">Tempo Total
+                      (s)</label>
+                    <input type="text" id="time" class="input-none border border-dark form-control"
+                      aria-describedby="basic-addon1" readonly>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer justify-content-between">
+                <div class="">
+                  <button type="button" class="btn btn-secondary fw-bold border border-dark"
+                    data-bs-dismiss="modal">Fechar</button>
+                </div>
+                <div class="">
+                  <button type="button" class="btn btn-success fw-bold border border-dark" data-bs-dismiss="modal"
+                    aria-label="Close" onclick="play()">Começar Simulação</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h1 class="letter m-auto">Modelo 4</h1>
+    </div>
+
+    <!-- TELA DE ANIMAÇÃO -->
+    <div class="canvas-div">
+      <canvas id="canvas"></canvas>
+      <canvas class="mb-3" id="canvas_scale"></canvas>
+      <div class="div-buttons d-flex flex-column p-3">
+        <button class="fw-bold btn btn-warning border border-dark mb-3" type="button" onclick="stop()">Parar
+          Simulação</button>
+        <button class="fw-bold btn btn-success border border-dark mb-3" type="button" onclick="resume()">Continuar
+          Simulação</button>
+        <button class="fw-bold btn btn-danger border border-dark" type="button" onclick="reset()">Resetar
+          Simulação</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let canvas = document.getElementById("canvas");
+    let canvas_scale = document.getElementById("canvas_scale");
+    let context = canvas.getContext("2d");
+    let ctx = canvas_scale.getContext("2d");
+
+    // CALCULO PARA VERIFICAR A DIFERENÇA DA TELA CENTRAL EM RELAÇÃO AO TAMANHO DA JANELA DO BROWSER 
+    let calWidthWindow = window.innerWidth - 1319;
+
+    // DEFININDO O TAMANHO DO CANVAS SUPERIOR E INFERIOR, PARA QUE FIQUE RESPONSIVO
+    canvas.width = window.innerWidth - calWidthWindow;
+    canvas.height = window.innerHeight;
+    canvas_scale.width = window.innerWidth - calWidthWindow;
+    canvas_scale.height = 40;
+
+    // SALVANDO ESTES VALORES EM VARIÁVEIS PARA SEREM USADAS POSTERIORMENTE NA TRAGETÓRIA
+    let widthWindow = canvas.width;
+    let heightWindow = canvas.height;
+
+    // ARMAZENANDO OS VALORES DA POSIÇÃO DA BOLA E TAMANHO DA TELA
+    let values = {
+      x: 50,
+      y: canvas.height - 20,
+      width: widthWindow,
+      height: heightWindow,
+      raio: Math.PI * 2,
+      maxHeight: 0
+    };
+
+    // FUNÇÃO QUE PERCEBE A MUDANÇA DE TAMANHO DA JANELA E ATUALIZA (DANDO EFEITO DE RESPONSIVIDADE), ALÉM DE SALVAR SEMPRE UM NOVO VALOR DE COMPRIMENTO DE TELA PARA O VALUES.WIDTH E ASSIM AJUDAR NOS CÁLCULOS DA TRAGETÓRIA
+    function risezeWindow() {
+      canvas.width = window.innerWidth - calWidthWindow;
+      canvas_scale.width = window.innerWidth - calWidthWindow;
+      values.width = canvas.width;
+    }
+
+    // AQUI A FUNÇÃO É EXECUTADA
+    window.onresize = risezeWindow;
+
+    let scale = {
+      x: 1,
+      y: 1
+    };
+
+    let position = [];
+    let aux = [];
+    let draw = new object();
+
+    // NESTA PARTE ESTOU USANDO A FUNÇÃO VALUE-TIME-REAL QUE ESTÁ CAPTURANDO EM TEMPO REAL OS VALORES DOS INPUTS DE GRAVIDADE, VELOCIDADE E ÂNGULO. PARA QUE EU POSSA FAZER UMA VERIFICAÇÃO DOS VALORES DE ALCANCE MÁXIMO E ALTURA MÁXIMA, DESTA FORMA PODENDO FAZER AJUSTES NAS DIMENSÕES DO OBJETO NA HORA DE INICIAR A SIMULAÇÃO.
+    let alcanceHorizontalVerification = '';
+    let alturaMaximaVerification = '';
+
+    function valueTimeReal() {
+      let gravityVerification = document.getElementById("gravidade").value;
+      let velocidadeVerification = document.getElementById("velocidade").value;
+      let angleVerification = document.getElementById("angulo").value;
+
+      let rad = (Math.PI / 180) * angleVerification;
+      let sen = Math.sin(rad);
+      let cos = Math.cos(rad);
+      let senTwo = Math.sin(2 * rad);
+      let velocidadeVerificationX = (velocidadeVerification * cos).toFixed(2);
+      let velocidadeVerificationY = (velocidadeVerification * sen).toFixed(2);
+      alcanceHorizontalVerification = ((velocidadeVerification * velocidadeVerification) * senTwo / gravityVerification).toFixed(2);
+      alturaMaximaVerification = (((velocidadeVerification ** 2) * (sen ** 2)) / (2 * gravityVerification)).toFixed(2);
+    }
+
+    function calculate() {
+      if (alcanceHorizontalVerification >= (canvas.width - 50)) {
+
+        // PEGANDO OS VALORES DOS INPUTS PARA FAZER OS CÁLCULOS
+        let gravity = document.getElementById("gravidade").value;
+        let vi = document.getElementById("velocidade").value;
+        let angle = document.getElementById("angulo").value;
+
+        // CONVERTENDO O ANGULO EM RADIANOS
+        let rad = (Math.PI / 180) * angle;
+        let sen = Math.sin(rad);
+        let cos = Math.cos(rad);
+        let senTwo = Math.sin(2 * rad);
+
+        // EQUAÇÃO USADA PARA CASO O ALCANCE EM X SEJA MAIOR QUE A TELA 
+        let velocidadeNew = Math.sqrt((gravity * (canvas.width - 80)) / senTwo).toFixed(2);
+
+        // VERIFICANDO SE O CAMPOS DE GRAVIDADE, VELOCIDADE E ANGULO ESTÃO VAZIOS
+        if (gravity <= 0 || gravity == '') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Não é permitido gravidades menores ou iguais a zero!'
+          })
+          document.getElementById("gravidade").value = ""
+          return
+        }
+
+        if (angle <= 0 || angle == '') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Não é permitido ângulos menores ou iguais a zero!'
+          })
+          document.getElementById("angulo").value = ""
+          return
+        } else if (angle >= 90) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Não é permitido ângulos maiores ou iguais a noventa!'
+          })
+          document.getElementById("angulo").value = ""
+          return
+        }
+
+        if (vi <= 0 || vi == '') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Não é permitido velocidades menores ou iguais a zero!'
+          })
+          document.getElementById("velocidade").value = ""
+          return
+        }
+
+        this.time = function () {
+          return (2 * velocidadeNew * sen) / gravity;
+        };
+
+        this.maxHeight = function () {
+          return (velocidadeNew * velocidadeNew * (sen * sen)) / (2 * gravity);
+        };
+
+        this.coordinateX = function (i) {
+          return velocidadeNew * cos * i;
+        };
+
+        this.coordinateY = function (i) {
+          return velocidadeNew * sen * i - (gravity / 2) * (i * i);
+        };
+
+        this.scale = function () {
+          scale.x = Math.ceil(position[position.length - 1].x / values.width);
+          scale.y = Math.ceil(values.maxHeight / values.height);
+        };
+
+      } else {
+        let gravity = document.getElementById("gravidade").value;
+        let vi = document.getElementById("velocidade").value;
+        let angle = document.getElementById("angulo").value;
+
+        if (gravity <= 0 || gravity == '') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Não é permitido gravidades menores ou iguais a zero!'
+          })
+          document.getElementById("gravidade").value = ""
+          return
+        }
+
+        if (angle <= 0 || angle == '') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Não é permitido ângulos menores ou iguais a zero!'
+          })
+          document.getElementById("angulo").value = ""
+          return
+        } else if (angle >= 90) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Não é permitido ângulos maiores ou iguais a noventa!'
+          })
+          document.getElementById("angulo").value = ""
+          return
+        }
+
+        if (vi <= 0 || vi == '') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Não é permitido velocidades menores ou iguais a zero!'
+          })
+          document.getElementById("velocidade").value = ""
+          return
+        }
+
+        let rad = (Math.PI / 180) * angle;
+        let sen = Math.sin(rad);
+        let cos = Math.cos(rad);
+
+        this.time = function () {
+          return ((2 * vi * sen) / gravity);
+        };
+
+        this.maxHeight = function () {
+          return (vi * vi * (sen * sen)) / (2 * gravity);
+        };
+
+        this.coordinateX = function (i) {
+          return vi * cos * i;
+        };
+
+        this.coordinateY = function (i) {
+          return vi * sen * i - (gravity / 2) * (i * i);
+        };
+
+        this.scale = function () {
+          scale.x = Math.ceil(position[position.length - 1].x / values.width);
+          scale.y = Math.ceil(values.maxHeight / values.height);
+        };
+      }
+    }
+
+    function play() {
+      let calc = new calculate();
+      let gravity = document.getElementById("gravidade").value;
+      let vi = document.getElementById("velocidade").value;
+      let angle = document.getElementById("angulo").value;
+
+      let rad = (Math.PI / 180) * angle;
+      let sen = Math.sin(rad);
+      let cos = Math.cos(rad);
+
+      aux = [];
+
+      let time = calc.time().toFixed(2);
+      let timeInput = ((2 * vi * sen) / gravity).toFixed(2);
+      let maximumH = (((vi ** 2) * (sen ** 2)) / (2 * gravity)).toFixed(2);
+      let velocidadeX = (vi * cos).toFixed(2);
+      let velocidadeY = (vi * sen).toFixed(2);
+      let velocidadeInstantânea = Math.sqrt((velocidadeX) ^ 2 + (velocidadeY) ^ 2).toFixed(2);
+      let senTwo = Math.sin(2 * rad);
+      let alcanceHorizontal = ((vi * vi) * senTwo / gravity).toFixed(2);
+
+      document.getElementById('time').value = timeInput;
+      document.getElementById('maximumH').value = maximumH;
+      document.getElementById('velocidadeX').value = velocidadeX;
+      document.getElementById('velocidadeY').value = velocidadeY;
+      document.getElementById('velocidadeInstantânea').value = velocidadeInstantânea;
+      document.getElementById('alcanceHorizontal').value = alcanceHorizontal;
+
+      values.maxHeight = calc.maxHeight().toFixed(2);
+
+      let tmp = time > 10 ? Math.sqrt(time) / 100 : 0.02;
+
+      for (let i = 0; i < time; i += tmp) {
+        position.push({
+          x: calc.coordinateX(i),
+          y: calc.coordinateY(i)
+        });
+      }
+
+      if (position.length > 0) {
+        calc.scale(values.maxHeight);
+      }
+    }
+
+    function reset() {
+      values.x = 50;
+      values.y = canvas.height - 20;
+      values.width = canvas.width;
+      values.height = canvas.height;
+      values.raio = Math.PI * 2;
+      values.maxHeight = 0;
+      scale.x = 1;
+      scale.y = 1;
+      position = [];
+      aux = [];
+      draw = new object();
+      document.getElementById("gravidade").value = '';
+      document.getElementById("velocidade").value = '';
+      document.getElementById("angulo").value = '';
+      document.getElementById("time").value = '';
+      document.getElementById("maximumH").value = '';
+      document.getElementById("velocidadeX").value = '';
+      document.getElementById("velocidadeY").value = '';
+      document.getElementById("velocidadeInstantânea").value = '';
+      document.getElementById("alcanceHorizontal").value = '';
+    }
+
+    function object() {
+      context.fillStyle = "#00000";
+      ctx.strokeStyle = "#00000";
+      ctx.fillStyle = "#00000";
+      ctx.font = "18px Arial";
+
+      this.ball = function () {
+        context.beginPath();
+        // Tamanho da bola
+        context.arc(values.x, values.y, 20, 0, values.raio);
+        context.fill();
+      };
+
+      this.drawRoute = function () {
+        let tmp = aux.length;
+
+        for (let i = 1; i < tmp; i++) {
+          context.beginPath();
+          context.arc(aux[i].x, aux[i].y, 1, 0, values.raio);
+          context.fill();
+        }
+      };
+
+      this.ruler = function () {
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        // Tamano da linha de medição
+        ctx.lineTo(canvas.width, 0);
+        ctx.stroke();
+        ctx.fill();
+      };
+    }
+
+    let isAnimationPaused = false;
+
+    function stop() {
+      isAnimationPaused = true;
+    }
+
+    function resume() {
+      isAnimationPaused = false;
+    }
+
+    function onDraw() {
+      context.clearRect(0, 0, values.width, values.height);
+      ctx.clearRect(0, 0, canvas_scale.width, canvas_scale.height);
+
+      if (!isAnimationPaused && position.length > 0) {
+        let p = position.shift();
+        // POSIÇÃO INICIAL EM X AONDE COMEÇA A DESENHAR
+        values.x = (p.x.toFixed(2) / scale.x) + 50;
+
+        // POSIÇÃO INCIAL E FINAL EM Y ONDE COMEÇA A DESENHAR
+        values.y =
+          values.maxHeight >= values.height
+            ? values.height - (p.y.toFixed(2) / scale.y) - 20
+            : values.height - (p.y.toFixed(2) / scale.x) - 20;
+        aux.push({
+          x: values.x,
+          y: values.y
+        });
+      }
+
+      draw.ball();
+      draw.drawRoute();
+      requestAnimationFrame(onDraw);
+    }
+    requestAnimationFrame(onDraw);
+  </script>
+  </script>
+</body>
+
+</html>

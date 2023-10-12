@@ -92,7 +92,7 @@
       <canvas class="mb-3" id="canvas_scale"></canvas>
     </div>
 
-    <div class="row">
+    <div class="row" id="rowFodase">
       <div class="mb-2 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <label for="gravidade" class="form-label text-dark fw-bold m-0">Gravidade
           (m/s<sup>2</sup>)</label>
@@ -174,18 +174,42 @@
     let context = canvas.getContext("2d");
     let ctx = canvas_scale.getContext("2d");
 
-    // CALCULO PARA VERIFICAR A DIFERENÇA DA TELA CENTRAL EM RELAÇÃO AO TAMANHO DA JANELA DO BROWSER 
-    let calWidthWindow = window.innerWidth - 800;
+    let rowFodase = document.getElementById("rowFodase");
+    let rowFodaseNumber = rowFodase.clientWidth - 24;
 
-    // DEFININDO O TAMANHO DO CANVAS SUPERIOR E INFERIOR, PARA QUE FIQUE RESPONSIVO
-    canvas.width = window.innerWidth - calWidthWindow;
-    canvas.height = window.innerHeight;
-    canvas_scale.width = window.innerWidth - calWidthWindow;
-    canvas_scale.height = 40;
+    let windowTeste = window.innerWidth;
 
-    // SALVANDO ESTES VALORES EM VARIÁVEIS PARA SEREM USADAS POSTERIORMENTE NA TRAGETÓRIA
-    let widthWindow = canvas.width;
-    let heightWindow = canvas.height;
+    let calWidthWindow = '';
+    let widthWindow = '';
+    let heightWindow = '';
+
+    if (windowTeste < 1200) {
+      // CALCULO PARA VERIFICAR A DIFERENÇA DA TELA CENTRAL EM RELAÇÃO AO TAMANHO DA JANELA DO BROWSER 
+      calWidthWindow = window.innerWidth - rowFodaseNumber;
+
+      // DEFININDO O TAMANHO DO CANVAS SUPERIOR E INFERIOR, PARA QUE FIQUE RESPONSIVO
+      canvas.width = window.innerWidth - calWidthWindow;
+      canvas.height = window.innerHeight;
+      canvas_scale.width = window.innerWidth - calWidthWindow;
+      canvas_scale.height = 40;
+
+      // SALVANDO ESTES VALORES EM VARIÁVEIS PARA SEREM USADAS POSTERIORMENTE NA TRAGETÓRIA
+      widthWindow = canvas.width;
+      heightWindow = canvas.height;
+    } else {
+      // CALCULO PARA VERIFICAR A DIFERENÇA DA TELA CENTRAL EM RELAÇÃO AO TAMANHO DA JANELA DO BROWSER 
+      calWidthWindow = window.innerWidth - rowFodaseNumber;
+
+      // DEFININDO O TAMANHO DO CANVAS SUPERIOR E INFERIOR, PARA QUE FIQUE RESPONSIVO
+      canvas.width = window.innerWidth - calWidthWindow;
+      canvas.height = window.innerHeight;
+      canvas_scale.width = window.innerWidth - calWidthWindow;
+      canvas_scale.height = 40;
+
+      // SALVANDO ESTES VALORES EM VARIÁVEIS PARA SEREM USADAS POSTERIORMENTE NA TRAGETÓRIA
+      widthWindow = canvas.width;
+      heightWindow = canvas.height;
+    }
 
     // ARMAZENANDO OS VALORES DA POSIÇÃO DA BOLA E TAMANHO DA TELA
     let values = {
@@ -199,9 +223,11 @@
 
     // FUNÇÃO QUE PERCEBE A MUDANÇA DE TAMANHO DA JANELA E ATUALIZA (DANDO EFEITO DE RESPONSIVIDADE), ALÉM DE SALVAR SEMPRE UM NOVO VALOR DE COMPRIMENTO DE TELA PARA O VALUES.WIDTH E ASSIM AJUDAR NOS CÁLCULOS DA TRAGETÓRIA
     function risezeWindow() {
+      rowFodaseNumber = rowFodase.clientWidth;
       canvas.width = window.innerWidth - calWidthWindow;
       canvas_scale.width = window.innerWidth - calWidthWindow;
       values.width = canvas.width;
+      windowTeste = values.width;
     }
 
     // AQUI A FUNÇÃO É EXECUTADA

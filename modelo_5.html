@@ -12,7 +12,10 @@
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   <title>Modelo 5</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Barriecito&family=Kanit:wght@400;700&family=Lilita+One&family=Roboto:ital,wght@0,100;0,400;0,700;1,400&family=Signika:wght@400;600;700&display=swap');
@@ -97,14 +100,15 @@
     </div>
   </header>
 
-  <div class="container-fluid text m-auto">
+  <div class="container-fluid text justify-content-center m-auto">
+
     <!-- TÍTULO DA SIMULAÇÃO -->
     <div class="d-flex justify-content-center m-auto" id="containerWindow">
       <h1 class="letter">Modelo 5</h1>
     </div>
 
     <!-- TELA DE ANIMAÇÃO -->
-    <div class="canvas-div">
+    <div class="canvas-div mb-3">
       <canvas id="canvas"></canvas>
       <canvas class="mb-3" id="canvas_scale"></canvas>
       <div class="div-inputs d-flex p-3 gap-3">
@@ -112,23 +116,21 @@
           <div class="mb-3">
             <label for="gravidade" class="form-label text-dark fw-bold m-0">Gravidade
               (m/s<sup>2</sup>)</label>
-            <input type="number" placeholder="Digite..." id="gravidade"
-              class="form-control border border-dark" onkeyup="valueTimeReal()" placeholder="Username" aria-label="Username"
-              aria-describedby="basic-addon1">
+            <input type="number" placeholder="Digite..." id="gravidade" class="form-control border border-dark"
+              onkeyup="valueTimeReal()" aria-describedby="basic-addon1">
           </div>
           <div class="mb-3">
             <label for="velocidade" class="form-label text-dark fw-bold m-0">Velocidade
               Inicial
               (m/s)</label>
-            <input type="number" placeholder="Digite..." id="velocidade"
-              class="form-control border border-dark" onkeyup="valueTimeReal()" placeholder="Username" aria-label="Username"
-              aria-describedby="basic-addon1">
+            <input type="number" placeholder="Digite..." id="velocidade" class="form-control border border-dark"
+              onkeyup="valueTimeReal()" aria-describedby="basic-addon1">
           </div>
           <div class="mb-3">
             <label for="angulo" class="form-label text-dark fw-bold m-0">Ângulo
               (°)</label>
             <input type="number" placeholder="Digite..." id="angulo" class="border border-dark form-control"
-              onkeyup="valueTimeReal()" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+              onkeyup="valueTimeReal()" aria-describedby="basic-addon1">
           </div>
         </div>
         <!-- <div class="div-inputs-middle rounded rounded-4 border border-dark shadow p-3 bg-light">
@@ -172,15 +174,20 @@
       </div>
       <div class="div-buttons col-10 col-sm-8 col-md-6 col-lg-4 col-xl-4">
         <div class="d-flex justify-content-between rounded rounded-4 p-2">
-          <button type="button" class="btn btn-sm btn-success fw-bold border border-dark shadow"
-            aria-label="Close" onclick="play()">Inciar</button>
-          <button class="fw-bold btn btn-sm btn-warning border border-dark shadow" type="button" onclick="stop()">Parar</button>
+          <button type="button" class="btn btn-sm btn-success fw-bold border border-dark shadow" aria-label="Close"
+            onclick="play()">Inciar</button>
+          <button class="fw-bold btn btn-sm btn-warning border border-dark shadow" type="button"
+            onclick="stop()">Parar</button>
           <button class="fw-bold btn btn-sm btn-info border border-dark shadow" type="button"
             onclick="resume()">Continuar</button>
-          <button class="fw-bold btn btn-sm btn-danger border border-dark shadow" type="button" onclick="reset()">Resetar</button>
+          <button class="fw-bold btn btn-sm btn-danger border border-dark shadow" type="button"
+            onclick="reset()">Resetar</button>
         </div>
       </div>
     </div>
+    <div class="border border-dark rounded rounded-4 mb-3 d-none" id="containerHighchartsOne"></div>
+    <div class="border border-dark rounded rounded-4 mb-3 d-none" id="containerHighchartsTwo"></div>
+    <div class="border border-dark rounded rounded-4 mb-3 d-none" id="containerHighchartsThree"></div>
   </div>
 
   <script>
@@ -207,8 +214,8 @@
 
     // ARMAZENANDO OS VALORES DA POSIÇÃO DA BOLA E TAMANHO DA TELA
     let values = {
-      x: 50,
-      y: canvas.height - 20,
+      x: 30,
+      y: canvas.height - 15,
       width: widthWindow,
       height: heightWindow,
       raio: Math.PI * 2,
@@ -253,10 +260,171 @@
       let velocidadeVerificationY = (velocidadeVerification * sen).toFixed(2);
       alcanceHorizontalVerification = ((velocidadeVerification * velocidadeVerification) * senTwo / gravityVerification).toFixed(2);
       alturaMaximaVerification = (((velocidadeVerification ** 2) * (sen ** 2)) / (2 * gravityVerification)).toFixed(2);
+      let time = (2 * (velocidadeVerificationY / gravityVerification)).toFixed(2);
+
+      document.getElementById('time').value = time;
+      document.getElementById('maximumH').value = alturaMaximaVerification;
+      document.getElementById('alcanceHorizontal').value = alcanceHorizontalVerification;
+
+      // Valores iniciais
+      let gravityChart = document.getElementById("gravidade").value; // Aceleração devido à gravidade (m/s^2)
+      let initialVelocity = document.getElementById("velocidade").value; // Velocidade inicial (m/s)
+      let launchAngle = document.getElementById("angulo").value; // Ângulo de lançamento (graus)
+
+      // Função para calcular o movimento oblíquo
+      function calculateProjectileMotion() {
+        let radianAngle = (launchAngle * Math.PI) / 180;
+        let timeOfFlight = (2 * initialVelocity * Math.sin(radianAngle)) / gravityChart;
+        let maxHeight = (initialVelocity ** 2 * (Math.sin(radianAngle) ** 2)) / (2 * gravityChart);
+        let maxWidth = (initialVelocity ** 2 * (2 * Math.sin(radianAngle))) / gravityChart;
+
+        let data = [];
+        let dataTimeH = [];
+        let dataTime = [];
+
+        for (let t = 0; t <= timeOfFlight; t += 0.1) {
+          let x = initialVelocity * Math.cos(radianAngle) * t;
+          let y = initialVelocity * Math.sin(radianAngle) * t - (0.5 * gravityChart * t ** 2);
+          data.push([x, y]);
+          dataTimeH.push([t, y]);
+          dataTime.push([t, x]);
+        }
+
+        return { data, dataTimeH, dataTime, maxHeight, timeOfFlight };
+      }
+
+      // Chame a função para obter os dados do movimento oblíquo
+      let { data, maxHeight } = calculateProjectileMotion();
+      let { dataTimeH, timeOfFlight } = calculateProjectileMotion();
+      let { dataTime, maxWidth } = calculateProjectileMotion();
+
+      // Crie o gráfico Highcharts
+      Highcharts.chart('containerHighchartsOne', {
+        title: {
+          text: 'Altura em Função do Alcance Horizontal'
+        },
+        xAxis: {
+          title: {
+            text: 'Alcance Horizontal (m)'
+          },
+          gridLineWidth: 1,
+          gridLineColor: '#ccd6eb',
+        },
+        yAxis: {
+          title: {
+            text: 'Altura (m)'
+          },
+          gridLineWidth: 1,
+          gridLineColor: '#ccd6eb',
+        },
+        series: [{
+          name: 'Trajetória',
+          data: data
+        }],
+        tooltip: {
+          headerFormat: '<b>Alcance: {point.x:.2f} m</b><br>',
+          pointFormat: '<b>Altura: {point.y:.2f} m</b>',
+          shared: true
+        },
+        legend: {
+          enabled: false
+        }
+      });
+
+      // Crie o gráfico Highcharts
+      Highcharts.chart('containerHighchartsTwo', {
+        title: {
+          text: 'Altura em Função do Tempo'
+        },
+        xAxis: {
+          title: {
+            text: 'Tempo (s)'
+          },
+          gridLineWidth: 1,
+          gridLineColor: '#ccd6eb',
+        },
+        yAxis: {
+          title: {
+            text: 'Altura (m)'
+          },
+          gridLineWidth: 1,
+          gridLineColor: '#ccd6eb',
+        },
+        series: [{
+          name: 'Trajetória',
+          data: dataTimeH
+        }],
+        plotOptions: {
+          scatter: {
+            marker: {
+              radius: 4
+            }
+          }
+        },
+        tooltip: {
+          headerFormat: '<b>Tempo: {point.x:.2f} s</b><br>',
+          pointFormat: '<b>Altura: {point.y:.2f} m</b>',
+          shared: true
+        },
+        legend: {
+          enabled: false
+        }
+      });
+
+      // Crie o gráfico Highcharts
+      Highcharts.chart('containerHighchartsThree', {
+        title: {
+          text: 'Alcance Horizontal em Função do Tempo'
+        },
+        xAxis: {
+          title: {
+            text: 'Tempo (s)'
+          },
+          gridLineWidth: 1,
+          gridLineColor: '#ccd6eb',
+        },
+        yAxis: {
+          title: {
+            text: 'Alcance Horizontal (m)'
+          },
+          gridLineWidth: 1,
+          gridLineColor: '#ccd6eb',
+        },
+        series: [{
+          name: 'Trajetória',
+          data: dataTime
+        }],
+        plotOptions: {
+          scatter: {
+            marker: {
+              radius: 4
+            }
+          }
+        },
+        tooltip: {
+          headerFormat: '<b>Tempo: {point.x:.2f} s</b><br>',
+          pointFormat: '<b>Alcance: {point.y:.2f} m</b>',
+          shared: true
+        },
+        legend: {
+          enabled: false
+        }
+      });
+
+      let containerHighchartsOne = document.getElementById("containerHighchartsOne");
+      let containerHighchartsTwo = document.getElementById("containerHighchartsTwo");
+      let containerHighchartsThree = document.getElementById("containerHighchartsThree");
+
+      containerHighchartsOne.classList.remove("d-none")
+      containerHighchartsTwo.classList.remove("d-none")
+      containerHighchartsThree.classList.remove("d-none")
+      containerHighchartsOne.classList.add("d-block")
+      containerHighchartsTwo.classList.add("d-block")
+      containerHighchartsThree.classList.add("d-block")
     }
 
     function calculate() {
-      if (alcanceHorizontalVerification >= (values.width - 50)) {
+      if (alcanceHorizontalVerification >= (values.width - 30)) {
 
         // PEGANDO OS VALORES DOS INPUTS PARA FAZER OS CÁLCULOS
         let gravity = document.getElementById("gravidade").value;
@@ -404,31 +572,10 @@
 
     function play() {
       let calc = new calculate();
-      let gravity = document.getElementById("gravidade").value;
-      let vi = document.getElementById("velocidade").value;
-      let angle = document.getElementById("angulo").value;
-
-      let rad = (Math.PI / 180) * angle;
-      let sen = Math.sin(rad);
-      let cos = Math.cos(rad);
 
       aux = [];
 
       let time = calc.time().toFixed(2);
-      let timeInput = ((2 * vi * sen) / gravity).toFixed(2);
-      let maximumH = (((vi ** 2) * (sen ** 2)) / (2 * gravity)).toFixed(2);
-      let velocidadeX = (vi * cos).toFixed(2);
-      let velocidadeY = (vi * sen).toFixed(2);
-      // let velocidadeInstantânea = Math.sqrt((velocidadeX) ^ 2 + (velocidadeY) ^ 2).toFixed(2);
-      let senTwo = Math.sin(2 * rad);
-      let alcanceHorizontal = ((vi * vi) * senTwo / gravity).toFixed(2);
-
-      document.getElementById('time').value = timeInput;
-      document.getElementById('maximumH').value = maximumH;
-      // document.getElementById('velocidadeX').value = velocidadeX;
-      // document.getElementById('velocidadeY').value = velocidadeY;
-      // document.getElementById('velocidadeInstantânea').value = velocidadeInstantânea;
-      document.getElementById('alcanceHorizontal').value = alcanceHorizontal;
 
       values.maxHeight = calc.maxHeight().toFixed(2);
 
@@ -447,8 +594,8 @@
     }
 
     function reset() {
-      values.x = 50;
-      values.y = canvas.height - 20;
+      values.x = 30;
+      values.y = canvas.height - 15;
       values.width = canvas.width;
       values.height = canvas.height;
       values.raio = Math.PI * 2;
@@ -464,16 +611,24 @@
       document.getElementById("time").value = 'Resultado';
       document.getElementById("maximumH").value = 'Resultado';
       document.getElementById("alcanceHorizontal").value = 'Resultado';
-      // document.getElementById("velocidadeX").value = '';
-      // document.getElementById("velocidadeY").value = '';
-      // document.getElementById("velocidadeInstantânea").value = '';
+
+      let containerHighchartsOne = document.getElementById("containerHighchartsOne");
+      let containerHighchartsTwo = document.getElementById("containerHighchartsTwo");
+      let containerHighchartsThree = document.getElementById("containerHighchartsThree");
+
+      containerHighchartsOne.classList.remove("d-block")
+      containerHighchartsTwo.classList.remove("d-block")
+      containerHighchartsThree.classList.remove("d-block")
+      containerHighchartsOne.classList.add("d-none")
+      containerHighchartsTwo.classList.add("d-none")
+      containerHighchartsThree.classList.add("d-none")
     }
 
     function object() {
       this.ball = function () {
         context.beginPath();
         // Tamanho da bola
-        context.arc(values.x, values.y, 20, 0, values.raio);
+        context.arc(values.x, values.y, 15, 0, values.raio);
         context.fill();
       };
 
@@ -514,13 +669,13 @@
       if (!isAnimationPaused && position.length > 0) {
         let p = position.shift();
         // POSIÇÃO INICIAL EM X AONDE COMEÇA A DESENHAR
-        values.x = (p.x.toFixed(2) / scale.x) + 50;
+        values.x = (p.x.toFixed(2) / scale.x) + 30;
 
         // POSIÇÃO INCIAL E FINAL EM Y ONDE COMEÇA A DESENHAR
         values.y =
           values.maxHeight >= values.height
-            ? values.height - (p.y.toFixed(2) / scale.y) - 20
-            : values.height - (p.y.toFixed(2) / scale.x) - 20;
+            ? values.height - (p.y.toFixed(2) / scale.y) - 15
+            : values.height - (p.y.toFixed(2) / scale.x) - 15;
         aux.push({
           x: values.x,
           y: values.y
@@ -532,7 +687,6 @@
       requestAnimationFrame(onDraw);
     }
     requestAnimationFrame(onDraw);
-  </script>
   </script>
 </body>
 

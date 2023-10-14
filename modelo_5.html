@@ -17,7 +17,7 @@
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-  <title>Modelo 5</title>
+  <title>Modelos de Simulação</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Barriecito&family=Kanit:wght@400;700&family=Lilita+One&family=Roboto:ital,wght@0,100;0,400;0,700;1,400&family=Signika:wght@400;600;700&display=swap');
 
@@ -275,7 +275,8 @@
       // Função para calcular o movimento oblíquo
       function calculateProjectileMotion() {
         let radianAngle = (launchAngle * Math.PI) / 180;
-        let timeOfFlight = (2 * initialVelocity * Math.sin(radianAngle)) / gravityChart;
+        let timeOfFlight = ((2 * initialVelocity * Math.sin(radianAngle)) / gravityChart);
+        console.log(timeOfFlight);
         let maxHeight = (initialVelocity ** 2 * (Math.sin(radianAngle) ** 2)) / (2 * gravityChart);
         let maxWidth = (initialVelocity ** 2 * (2 * Math.sin(radianAngle))) / gravityChart;
 
@@ -283,7 +284,7 @@
         let dataTimeH = [];
         let dataTime = [];
 
-        for (let t = 0; t <= timeOfFlight; t += 0.1) {
+        for (let t = 0; t <= timeOfFlight; t += 0.001) {
           let x = initialVelocity * Math.cos(radianAngle) * t;
           let y = initialVelocity * Math.sin(radianAngle) * t - (0.5 * gravityChart * t ** 2);
           data.push([x, y]);
